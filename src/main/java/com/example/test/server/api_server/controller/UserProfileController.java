@@ -5,47 +5,30 @@ import java.util.List;
 import com.example.test.server.api_server.mapper.UserProfileMapper;
 import com.example.test.server.api_server.model.UserProfile;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.test.server.api_server.model.common.ResultMsg;
+import com.example.test.server.api_server.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class UserProfileController {
-    
-    private UserProfileMapper mapper;
 
-    public UserProfileController(UserProfileMapper mapper) {
-        this.mapper = mapper;
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/user/all_list")
+    public @ResponseBody ResultMsg<UserProfile> getIndex() {
+        return new ResultMsg<UserProfile>(true, "Anything you want to send",  userService.getUserProfileList());
     }
 
-    @GetMapping("/user/{id}")
-    public UserProfile getUserProfile(@PathVariable("id") String id) {
-        return mapper.getUserProfile(id);
+    @GetMapping("/user/item/{id}")
+    public @ResponseBody ResultMsg<UserProfile> getIndex(@PathVariable ("id") String id) {
+        UserProfile item = userService.getUserProfile(id);
+        if(item == null){
+            return new ResultMsg<UserProfile>(false, "찾을 수 없음.");
+        }
+        return new ResultMsg<UserProfile>(true, "Anything you want to send",  item);
     }
 
-    @GetMapping("/user/all")
-    public List<UserProfile> getUserProfileList() {
-        return mapper.getUserProfileList();
-    }
-
-    @PutMapping("/user/{id}")
-    public void putUserProfile(@PathVariable("id") String id, @RequestParam("pwd") String pwd, 
-    @RequestParam("name") String name, @RequestParam("age") String age) {
-        mapper.insertUserProfile(id, pwd, name, age);
-    }
-
-    @PostMapping("/user/{id}")
-    public void postUserProfile(@PathVariable("id") String id, @RequestParam("pwd") String pwd, 
-    @RequestParam("name") String name, @RequestParam("age") String age) {
-        mapper.updateUserProfile(id, pwd, name, age);
-    }
-
-    @DeleteMapping("/user/{id}")
-    public void deleteUserProfile(@PathVariable("id") String id) {
-        mapper.deleteUserProfile(id);
-    }
 }
