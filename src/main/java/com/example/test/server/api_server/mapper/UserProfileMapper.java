@@ -17,11 +17,14 @@ public interface UserProfileMapper {
     @Select("SELECT * FROM UserProfile WHERE id=#{id}")
     UserProfile getUserProfile(@Param("id") String id);
 
+    @Select("SELECT * FROM UserProfile WHERE id=#{id} and pwd=#{pwd}")
+    UserProfile getLoginCheck(@Param("id") String id, @Param("pwd") String pwd);
+
     @Select("SELECT * FROM UserProfile")
     List<UserProfile> getUserProfileList();
 
-    @Insert("INSERT INTO UserProfile VALUES(#{id}, #{pwd}, #{name}, #{age})")
-    int insertUserProfile(@Param("id") String id, @Param("pwd") String pwd, @Param("name") String name, @Param("age") String age);
+    @Insert("INSERT INTO UserProfile(id, pwd, name, age) VALUES(#{id}, #{pwd}, #{name}, #{age})")
+    int insertUserProfile(UserProfile profile);
 
     @Update("UPDATE UserProfile SET pwd=#{pwd}, name=#{name}, age=#{age} WHERE id=#{id}")
     int updateUserProfile(@Param("id") String id, @Param("pwd") String pwd, @Param("name") String name, @Param("age") String age);
