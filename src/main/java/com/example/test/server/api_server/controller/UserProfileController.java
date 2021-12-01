@@ -45,35 +45,29 @@ public class UserProfileController {
         return new ResultMsg<UserProfile>(true, "로그인 성공!",  login);
     }
 
-    @PostMapping(value = "/member/join",
-    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public @ResponseBody ResultMsg<String> requestJoin(@RequestBody UserProfile profile) {
+    @PostMapping(value = "/member/join")
+    // ,consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+    // produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public @ResponseBody ResultMsg<String> requestJoin(UserProfile profile) {
         ResultMsg<String> rslt = null;
         log.info("hahahahah");
         log.info(profile.getName()+" "+profile.getId());
-        // try{
-        //     userService.postRegister(profile);
-        //     rslt = new ResultMsg<>(true, "가입성공");
-        // }catch(Exception e){
-        //     rslt = new ResultMsg<>(false, e.getMessage());
-        // }
-        rslt = new ResultMsg<>(true, "가입성공");
+        try{
+            userService.postRegister(profile);
+            rslt = new ResultMsg<>(true, "가입성공");
+        }catch(Exception e){
+            rslt = new ResultMsg<>(false, e.getMessage());
+        }
+        // rslt = new ResultMsg<>(true, "가입성공");
         return rslt;
     }
     
-    // @RequestMapping(value = "/member/join/{id}, {pwd}, {name}, {age}", method = {RequestMethod.POST, RequestMethod.GET})
-    // public @ResponseBody ResultMsg<UserProfile> create( @PathVariable ("id") String id, @PathVariable ("pwd") String pwd,
-    // @PathVariable ("name") String name, @PathVariable ("age") String age) {
-    //     return new ResultMsg<UserProfile>(true, "가입 성공!", userService.postRegister(id, pwd, name, age));
-    // }
-    
-    // @RequestMapping(value = "/member/join/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
-    // public @ResponseBody ResultMsg<UserProfile> delIndex(@PathVariable ("id") String id) {
-    //     UserProfile del =   userService.delAccount(id);
-    //     if(del == null){
-    //         return new ResultMsg<UserProfile>(false, "찾을 수 없음.");
-    //     }
-    //     return new ResultMsg<UserProfile>(true, "삭제 완료",  del);
-    // }
+    @GetMapping(value = "/member/delete/{id}")
+    public @ResponseBody ResultMsg<String> requestDel(@PathVariable ("id") String id) {
+        int numberDel = userService.delAccount(id);
+        if(numberDel == 0){
+            return new ResultMsg<String>(false, "지우는 회원 정보 찾을 수 없음.");
+        }
+        return new ResultMsg<String>(true, "삭제 완료");
+    }
 }
