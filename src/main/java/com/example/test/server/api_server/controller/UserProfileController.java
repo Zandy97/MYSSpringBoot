@@ -5,13 +5,10 @@ import com.example.test.server.api_server.model.UserProfile;
 import com.example.test.server.api_server.model.common.ResultMsg;
 import com.example.test.server.api_server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -36,7 +33,7 @@ public class UserProfileController {
         return new ResultMsg<UserProfile>(true, "회원 정보",  item);
     }
 
-    @PostMapping("/user/login_check")
+    @PostMapping("/user/login_check") // 로그인
     public @ResponseBody ResultMsg<UserProfile> checkLogin(UserProfile profile) {
         UserProfile login = userService.getLoginCheck(profile.getId(), profile.getPwd());
         if(login == null){
@@ -45,12 +42,10 @@ public class UserProfileController {
         return new ResultMsg<UserProfile>(true, "로그인 성공!",  login);
     }
 
-    @PostMapping(value = "/member/join")
-    // ,consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-    // produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(value = "/user/join") // 회원 가입
     public @ResponseBody ResultMsg<String> requestJoin(UserProfile profile) {
         ResultMsg<String> rslt = null;
-        log.info("hahahahah");
+        log.info("join succese");
         log.info(profile.getName()+" "+profile.getId());
         try{
             userService.postRegister(profile);
