@@ -30,8 +30,8 @@ public class UserService {
         return userMapper.getLoginCheck(id, pwd);
     }
 
-    public int postRegister(UserProfile profile){
-        return userMapper.insertUserProfile(profile);
+    public UserProfile userJoin(String id, String pwd, String name, String age){
+        return userMapper.userJoin(id, pwd, name, age);
     }
 
     public int delAccount(String id){

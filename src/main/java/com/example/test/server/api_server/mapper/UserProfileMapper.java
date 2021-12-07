@@ -24,7 +24,7 @@ public interface UserProfileMapper {
     List<UserProfile> getUserProfileList();
 
     @Insert("INSERT INTO UserProfile(id, pwd, name, age) VALUES(#{id}, #{pwd}, #{name}, #{age})")
-    int insertUserProfile(UserProfile profile);
+    UserProfile userJoin(@Param("id") String id, @Param("pwd") String pwd, @Param("name") String name, @Param("age") String age);
 
     @Update("UPDATE UserProfile SET pwd=#{pwd}, name=#{name}, age=#{age} WHERE id=#{id}")
     int updateUserProfile(@Param("id") String id, @Param("pwd") String pwd, @Param("name") String name, @Param("age") String age);
