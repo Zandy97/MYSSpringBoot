@@ -43,12 +43,15 @@ public class UserProfileController {
     }
 
     @PostMapping(value = "/user/join") // 회원 가입
-    public @ResponseBody ResultMsg<UserProfile> requestJoin(UserProfile profile) {
-        UserProfile join = userService.userJoin(profile.getId(), profile.getPwd(), profile.getName(), profile.getAge());
-        if(join == null){
-            return  new ResultMsg<UserProfile>(false, "찾을 수 없음.");
+    public @ResponseBody ResultMsg<String> requestJoin(UserProfile profile) {
+        ResultMsg<String> rslt = null;
+        try{
+            userService.userJoin(profile);
+            rslt = new ResultMsg<>(true, "가입성공");
+        }catch(Exception e){
+            rslt = new ResultMsg<>(false, e.getMessage());
         }
-        return new ResultMsg<UserProfile>(true,"가입 성공", join);
+            return rslt;
     }
     
     @GetMapping(value = "/member/delete/{id}")
