@@ -1,6 +1,7 @@
 package com.example.test.server.api_server.service;
 
 import com.example.test.server.api_server.mapper.UserProfileMapper;
+import com.example.test.server.api_server.model.TodoList;
 import com.example.test.server.api_server.model.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class UserService {
 
     public int delAccount(String id){
         return userMapper.deleteUserProfile(id);
+    }
+
+    public int memberTodo(TodoList todolist){
+        return userMapper.memberTodo(todolist);
     }
 
 }

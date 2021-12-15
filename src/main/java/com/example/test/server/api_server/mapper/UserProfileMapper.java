@@ -2,6 +2,7 @@ package com.example.test.server.api_server.mapper;
 
 import java.util.List;
 
+import com.example.test.server.api_server.model.TodoList;
 import com.example.test.server.api_server.model.UserProfile;
 
 import org.apache.ibatis.annotations.Delete;
@@ -25,6 +26,9 @@ public interface UserProfileMapper {
 
     @Insert("INSERT INTO UserProfile(id, pwd, name, age) VALUES(#{id}, #{pwd}, #{name}, #{age})")
     int userJoin(UserProfile userProfile);
+
+    @Insert("INSERT INTO TodoList(title, stDate, endTime, id) VALUES(#{title}, #{stDate}, #{endTime}, #{id})")
+    int memberTodo(TodoList todolist);
 
     @Update("UPDATE UserProfile SET pwd=#{pwd}, name=#{name}, age=#{age} WHERE id=#{id}")
     int updateUserProfile(@Param("id") String id, @Param("pwd") String pwd, @Param("name") String name, @Param("age") String age);

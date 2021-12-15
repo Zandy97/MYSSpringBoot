@@ -62,4 +62,5 @@ public class UserProfileController {
         }
         return new ResultMsg<String>(true, "삭제 완료");
     }
+
 }
