@@ -43,4 +43,8 @@ public class UserService {
         return userMapper.memberTodo(todolist);
     }
 
+    public int delList(String title){
+        return userMapper.deleteTodoList(title);
+    }
+
 }

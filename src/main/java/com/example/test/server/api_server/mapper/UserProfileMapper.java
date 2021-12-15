@@ -35,4 +35,7 @@ public interface UserProfileMapper {
 
     @Delete("DELETE FROM UserProfile WHERE id=#{id}")
     int deleteUserProfile(@Param("id") String id);
+
+    @Delete("DELETE FROM TodoList WHERE title=#{title}")
+    int deleteTodoList(@Param("title") String title);
 }
