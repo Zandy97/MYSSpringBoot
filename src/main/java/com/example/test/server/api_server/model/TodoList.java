@@ -15,7 +15,7 @@ public class TodoList {
     private int todoPid;
     private String title;
     private String stDate;
-    private String endTime;
+    private String endDate;
     private String id;
 
     // java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");

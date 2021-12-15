@@ -27,7 +27,7 @@ public interface UserProfileMapper {
     @Insert("INSERT INTO UserProfile(id, pwd, name, age) VALUES(#{id}, #{pwd}, #{name}, #{age})")
     int userJoin(UserProfile userProfile);
 
-    @Insert("INSERT INTO TodoList(title, stDate, endTime, id) VALUES(#{title}, #{stDate}, #{endTime}, #{id})")
+    @Insert("INSERT INTO TodoList(title, stDate, endDate, id) VALUES(#{title}, #{stDate}, #{endDate}, #{id})")
     int memberTodo(TodoList todolist);
 
     @Update("UPDATE UserProfile SET pwd=#{pwd}, name=#{name}, age=#{age} WHERE id=#{id}")
